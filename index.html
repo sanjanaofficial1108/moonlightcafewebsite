@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Moonlight Café</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Floating Feedback Button */
+        #feedback-button {
+            position: fixed;
+            right: 20px;
+            bottom: 30px;
+            background: #f5d48f;
+            color: #000;
+            padding: 15px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s, background 0.3s;
+            z-index: 1000;
+        }
+
+        #feedback-button:hover {
+            transform: scale(1.1);
+            background: #ffd966;
+        }
+
+        /* Feedback Panel */
+        #feedback-panel {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100%;
+            background: rgba(10,10,15,0.95);
+            box-shadow: -2px 0 20px rgba(0,0,0,0.5);
+            padding: 40px 20px;
+            transition: right 0.4s ease;
+            z-index: 1001;
+            color: #eee;
+        }
+
+        #feedback-panel.active {
+            right: 0;
+        }
+
+        #feedback-panel h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+        }
+
+        #feedback-panel input,
+        #feedback-panel textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #feedback-panel button {
+            padding: 12px 20px;
+            background: #cfa670;
+            color: #000;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        /* Star Rating */
+        .stars {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .stars input {
+            display: none;
+        }
+
+        .stars label {
+            font-size: 25px;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .stars input:checked ~ label,
+        .stars label:hover,
+        .stars label:hover ~ label {
+            color: #ffd700;
+        }
+
+        /* Popup */
+        #popup {
+            display:none;
+            position:fixed;
+            top:50%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            background:#000;
+            padding:20px 30px;
+            border-radius:15px;
+            box-shadow:0 0 20px rgba(255,255,255,0.3);
+            color:#f5d48f;
+            z-index:2000;
+        }
+
+        /* Public Feedback */
+        #public-feedback {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .review-card {
+            background: rgba(255,255,255,0.08);
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <h1 class="logo">Moonlight Café</h1>
+    <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#hours">Hours</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h2>Where Everything Feels Warm</h2>
+        <p>Life happens, coffee helps.</p>
+        <a href="#menu" class="btn">View Menu</a>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+    <h2>About Moonlight Café</h2>
+    <p>A cozy café designed for quiet conversations, warm drinks and soft music.</p>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+    <h2>Our Menu</h2>
+    <div class="menu-row">
+        <div class="menu-item-card">
+            <img src="images/espresso.jpg">
+            <h3>Espresso</h3>
+            <p>RM 8</p>
+        </div>
+        <div class="menu-item-card">
+            <img src="images/latte.jpg">
+            <h3>Latte</h3>
+            <p>RM 13</p>
+        </div>
+        <div class="menu-item-card">
+            <img src="images/cappuccino.jpg">
+            <h3>Cappuccino</h3>
+            <p>RM 10</p>
+        </div>
+        <div class="menu-item-card">
+            <img src="images/hot_chocolate.jpg">
+            <h3>Hot Chocolate</h3>
+            <p>RM 12</p>
+        </div>
+         <div class="menu-item-card">
+            <img src="images/chocolate_cake.jpg">
+            <h3>chocolate cake</h3>
+            <p>RM 15</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- HOURS -->
+<section id="hours">
+    <h2>Opening Hours</h2>
+    <p>Monday – Sunday</p>
+    <p>8:00 AM – 12:00 AM</p>
+</section>
+
+<!-- Google Map -->
+<div class="map-container">
+   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127482.68785497993!2d101.6869895!3d3.1385058999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc362abd08e7d3%3A0x232e1ff540d86c99!2sKuala+Lumpur%2C+Federal+Territory+of+Kuala+Lumpur!5e0!3m2!1sen!2smy!4v1766752734884!5m2!1sen!2smy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>
+
+<section id="contact">
+    <h2>Visit Us</h2>
+    <a href="https://wa.me/60125651108" target="_blank">💬 WhatsApp Us</a></p>
+
+    <form id="contactForm">
+        <input type="text" name="name" placeholder="Your Name" required><br><br>
+        <input type="email" name="email" placeholder="Your Email" required><br><br>
+        <textarea name="message" placeholder="Your Message" required></textarea><br><br>
+        <button type="submit">Send</button>
+    </form>
+</section>
+
+<!-- PUBLIC FEEDBACK -->
+<section id="public-feedback">
+    <h2>Customer Reviews</h2>
+</section>
+
+<!-- Popup -->
+<div id="popup">✨ Message sent successfully ✨</div>
+
+<!-- Feedback Button -->
+<div id="feedback-button">💬 Feedback</div>
+
+<!-- Feedback Panel -->
+<div id="feedback-panel">
+    <span class="close-btn">&times;</span>
+    <h3>Your Feedback</h3>
+    <form id="sideFeedbackForm">
+        <input type="text" name="name" placeholder="Your Name" required>
+
+        <div class="stars">
+            <input type="radio" id="s5" name="rating" value="5"><label for="s5">★</label>
+            <input type="radio" id="s4" name="rating" value="4"><label for="s4">★</label>
+            <input type="radio" id="s3" name="rating" value="3"><label for="s3">★</label>
+            <input type="radio" id="s2" name="rating" value="2"><label for="s2">★</label>
+            <input type="radio" id="s1" name="rating" value="1"><label for="s1">★</label>
+        </div>
+
+        <textarea name="message" placeholder="Your Feedback" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+const feedbackBtn = document.getElementById('feedback-button');
+const feedbackPanel = document.getElementById('feedback-panel');
+const closeBtn = document.querySelector('.close-btn');
+
+feedbackBtn.onclick = () => feedbackPanel.classList.add('active');
+closeBtn.onclick = () => feedbackPanel.classList.remove('active');
+
+document.getElementById('contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('popup').style.display = 'block';
+    setTimeout(()=>popup.style.display='none',3000);
+    e.target.reset();
+});
+
+document.getElementById('sideFeedbackForm').addEventListener('submit', e => {
+    e.preventDefault();
+
+    const name = e.target.name.value;
+    const message = e.target.message.value;
+    const ratingInput = e.target.querySelector('input[name="rating"]:checked');
+    const rating = ratingInput ? ratingInput.value : 0;
+
+    const card = document.createElement('div');
+    card.className = "review-card";
+    card.innerHTML = `
+        <strong>${name}</strong><br>
+        ${'★'.repeat(rating)}${'☆'.repeat(5-rating)}<br>
+        ${message}
+    `;
+
+    document.getElementById('public-feedback').appendChild(card);
+    feedbackPanel.classList.remove('active');
+    e.target.reset();
+});
+</script>
+
+<!-- Cookie Consent -->
+<div id="cookie-banner">
+    <p>
+        🍪 We use cookies to improve your experience at Moonlight Café.
+    </p>
+    <button id="accept-cookies">Accept All</button>
+</div>
+
+<!-- JavaScript -->
+<script>
+const cookieBanner = document.getElementById("cookie-banner");
+const acceptBtn = document.getElementById("accept-cookies");
+
+if (localStorage.getItem("cookiesAccepted")) {
+    cookieBanner.style.display = "none";
+}
+
+acceptBtn.addEventListener("click", () => {
+    localStorage.setItem("cookiesAccepted", "true");
+    cookieBanner.style.display = "none";
+});
+</script>
+
+</body>
+</html>

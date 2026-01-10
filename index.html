@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <title>Moonlight Café</title>
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* Floating Feedback Button */
         #feedback-button {
             position: fixed;
             right: 20px;
@@ -31,7 +29,6 @@
             background: #ffd966;
         }
 
-        /* Feedback Panel */
         #feedback-panel {
             position: fixed;
             top: 0;
@@ -83,7 +80,6 @@
             cursor: pointer;
         }
 
-        /* Star Rating */
         .stars {
             display: flex;
             flex-direction: row-reverse;
@@ -107,7 +103,6 @@
             color: #ffd700;
         }
 
-        /* Popup */
         #popup {
             display:none;
             position:fixed;
@@ -122,7 +117,6 @@
             z-index:2000;
         }
 
-        /* Public Feedback */
         #public-feedback {
             max-width: 900px;
             margin: auto;
@@ -140,7 +134,6 @@
 
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
     <h1 class="logo">Moonlight Café</h1>
     <ul>
@@ -152,7 +145,6 @@
     </ul>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -162,13 +154,11 @@
     </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
     <h2>About Moonlight Café</h2>
     <p>A cozy café designed for quiet conversations, warm drinks and soft music.</p>
 </section>
 
-<!-- MENU -->
 <section id="menu">
     <h2>Our Menu</h2>
     <div class="menu-row">
@@ -201,14 +191,12 @@
     </div>
 </section>
 
-<!-- HOURS -->
 <section id="hours">
     <h2>Opening Hours</h2>
     <p>Monday – Sunday</p>
     <p>8:00 AM – 12:00 AM</p>
 </section>
 
-<!-- Google Map -->
 <div class="map-container">
    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127482.68785497993!2d101.6869895!3d3.1385058999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc362abd08e7d3%3A0x232e1ff540d86c99!2sKuala+Lumpur%2C+Federal+Territory+of+Kuala+Lumpur!5e0!3m2!1sen!2smy!4v1766752734884!5m2!1sen!2smy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 </div>
@@ -217,9 +205,7 @@
     <h2>Visit Us</h2>
     <a href="https://wa.me/60125651108" target="_blank">💬 WhatsApp Us</a></p>
 
-    <form id="contactForm"
-         action="https://formspree.io/f/mjggbpgq"
-         method="POST">
+    <form id="contactForm">
         <input type="text" name="name" placeholder="Your Name" required><br><br>
         <input type="email" name="email" placeholder="Your Email" required><br><br>
         <textarea name="message" placeholder="Your Message" required></textarea><br><br>
@@ -227,18 +213,35 @@
     </form>
 </section>
 
-<!-- PUBLIC FEEDBACK -->
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault(); 
+        let formData = new FormData(this);
+
+        fetch('send_email.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'block';
+            popup.innerHTML = data; 
+            setTimeout(() => { popup.style.display = 'none'; }, 3000);
+            document.getElementById('contactForm').reset();
+        })
+        .catch(err => alert('Something went wrong: ' + err));
+    });
+</script>
+
 <section id="public-feedback">
     <h2>Customer Reviews</h2>
-</section>
+</section>  
 
-<!-- Popup -->
 <div id="popup">✨ Message sent successfully ✨</div>
 
-<!-- Feedback Button -->
 <div id="feedback-button">💬 Feedback</div>
 
-<!-- Feedback Panel -->
 <div id="feedback-panel">
     <span class="close-btn">&times;</span>
     <h3>Your Feedback</h3>
@@ -295,7 +298,6 @@ document.getElementById('sideFeedbackForm').addEventListener('submit', e => {
 });
 </script>
 
-<!-- Cookie Consent -->
 <div id="cookie-banner">
     <p>
         🍪 We use cookies to improve your experience at Moonlight Café.
@@ -303,7 +305,6 @@ document.getElementById('sideFeedbackForm').addEventListener('submit', e => {
     <button id="accept-cookies">Accept All</button>
 </div>
 
-<!-- JavaScript -->
 <script>
 const cookieBanner = document.getElementById("cookie-banner");
 const acceptBtn = document.getElementById("accept-cookies");
@@ -318,6 +319,6 @@ acceptBtn.addEventListener("click", () => {
 });
 </script>
 
+
 </body>
 </html>
-

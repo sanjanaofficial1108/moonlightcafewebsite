@@ -7,129 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        #feedback-button {
-            position: fixed;
-            right: 20px;
-            bottom: 30px;
-            background: #f5d48f;
-            color: #000;
-            padding: 15px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s, background 0.3s;
-            z-index: 1000;
-        }
-
-        #feedback-button:hover {
-            transform: scale(1.1);
-            background: #ffd966;
-        }
-
-        #feedback-panel {
-            position: fixed;
-            top: 0;
-            right: -350px;
-            width: 350px;
-            height: 100%;
-            background: rgba(10,10,15,0.95);
-            box-shadow: -2px 0 20px rgba(0,0,0,0.5);
-            padding: 40px 20px;
-            transition: right 0.4s ease;
-            z-index: 1001;
-            color: #eee;
-        }
-
-        #feedback-panel.active {
-            right: 0;
-        }
-
-        #feedback-panel h3 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 20px;
-        }
-
-        #feedback-panel input,
-        #feedback-panel textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        #feedback-panel button {
-            padding: 12px 20px;
-            background: #cfa670;
-            color: #000;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 22px;
-            cursor: pointer;
-        }
-
-        .stars {
-            display: flex;
-            flex-direction: row-reverse;
-            justify-content: flex-end;
-            margin-bottom: 15px;
-        }
-
-        .stars input {
-            display: none;
-        }
-
-        .stars label {
-            font-size: 25px;
-            color: #ccc;
-            cursor: pointer;
-        }
-
-        .stars input:checked ~ label,
-        .stars label:hover,
-        .stars label:hover ~ label {
-            color: #ffd700;
-        }
-
-        #popup {
-            display:none;
-            position:fixed;
-            top:50%;
-            left:50%;
-            transform:translate(-50%, -50%);
-            background:#000;
-            padding:20px 30px;
-            border-radius:15px;
-            box-shadow:0 0 20px rgba(255,255,255,0.3);
-            color:#f5d48f;
-            z-index:2000;
-        }
-
-        #public-feedback {
-            max-width: 900px;
-            margin: auto;
-        }
-
-        .review-card {
-            background: rgba(255,255,255,0.08);
-            margin: 15px 0;
-            padding: 15px;
-            border-radius: 12px;
-            text-align: left;
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -317,6 +195,23 @@ acceptBtn.addEventListener("click", () => {
     localStorage.setItem("cookiesAccepted", "true");
     cookieBanner.style.display = "none";
 });
+</script>
+
+<script>
+const hero = document.getElementById("hero");
+
+const images = [
+    "images/background.webp",
+    "images/background2.webp",
+    "images/background3.jpg"
+];
+
+let index = 0;
+
+setInterval(() => {
+    hero.style.backgroundImage = `url('${images[index]}')`;
+    index = (index + 1) % images.length;
+}, 5000); // change every 5 seconds
 </script>
 
 
